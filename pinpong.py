@@ -1,3 +1,4 @@
+
 from pygame import *
 
 
@@ -6,8 +7,6 @@ win_height = 500
 window = display.set_mode((win_width, win_height))
 clock = time.Clock()
 FPS = 60
-
-
 
 
 class GameSprite(sprite.Sprite):
@@ -26,6 +25,7 @@ class GameSprite(sprite.Sprite):
         self.rect.y = player_y
 
 
+    #метод, отрисовывающий героя на окне
     def reset(self):
         window.blit(self.image, (self.rect.x, self.rect.y))
 
@@ -50,20 +50,34 @@ class Player(GameSprite):
             self.rect.y += self.speed
 
 
+#создания мяча и ракетки  
+racket1 = Player('racket.png', 30, 200, 50, 150, 4)
+racket2 = Player('racket.png', 520, 200, 50, 150, 4)
+ball = GameSprite('tenis_ball.png', 200, 200, 50, 50, 4)
+
+
 
 
 game = True
+finish = False
 while game:
     for e in event.get():
         if e.type == QUIT:
             game = False
 
 
-    window.fill((100,100,100))
-   
+    if finish == False:
+        racket1.update_l()
+        racket2.update_r()
+       
+        window.fill((100,100,100))
+        racket1.reset()
+        racket2.reset()
+        ball.reset()
+
+
     display.update()
     clock.tick(FPS)
-
 
 
 
